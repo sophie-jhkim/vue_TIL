@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뷰 인스턴스 생성과 v 디렉티브</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/lib/vue.js"></script>
+    
+</head>
+<body id="main">
+    <section id="section1">
+        <div class="wrap">
+            <div class="title">
+                <h1 v-bind:class="{'h-title':t1}">{{title}}</h1>
+                <h2 v-bind:class="{hSubject:t2}">{{subject}}</h2>
+            </div>
+            <div class="container">
+                <ul class="clearfix">
+
+                    <li v-if="score>=90">수</li>
+                    <li v-else-if="score>=80">우</li>
+                    <li v-else-if="score>=70">미</li>
+                    <li v-else-if="score>=60">양</li>
+                    <li v-else>가</li>
+
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+
+    
+    <script src="./js/script.js"></script>
+    
+</body>
+</html>

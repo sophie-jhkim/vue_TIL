@@ -1,0 +1,21 @@
+서버사이드언어  asp jsp php
+요즘은  asp가 잘나감
+php 시장이 가장 큼. 무료
+jsp 공공기관이 가장많이 사용
+
+vscode 확장프로그램
+vetur : 
+vue cli  comand line interface 큰 프로젝트를 제작할때
+
+gnb global menu 항상 보이는 메뉴
+lnb local menu gnb의 depth
+
+바벨은 자바스크립트 번역기가 아니라 버전이 다른 얘들을 맞춰주는거였음?????
+
+뷰의 구조
+MVVM :  ModelView, View, Model
+
+
+이름짓기 카멜, 케밥, 스네이크
+자바는 보통 카멜,
+파일명은 스네이크, 아이디는 카멜? 클래스는 케밥

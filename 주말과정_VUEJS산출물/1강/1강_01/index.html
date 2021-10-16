@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue.js 첫번째 프로젝트</title>
+</head>
+<body>
+    <!-- 돔DOM -->
+
+    <section id="section1">
+        <!-- <h1 lass="title1">뷰 인스턴스 생성과 머스태쉬 변수 사용 {{변수이름}}, 태그요소의 속성 스타일 사용 v-bind:style='[{},{},{}]' </h1> -->
+
+        <!-- 설정한 스타일을 적용할때 클래스명 사용유무 true, false로 설정. jquery addClass랑 유사개념-->
+        <!-- v-bind:class="{클래스이름:true 또는 false}" 만일 true이면 클래스 추가되고 false이면 삭제된다 -->
+        <h1 v-bind:class="{title1:x}">뷰 인스턴스 생성과 머스태쉬 변수 사용 {{변수이름}}, 태그요소의 속성 스타일 사용 v-bind:style='[{},{},{}]' </h1>
+        <!-- 변수는 콧수염 이중중괄호{{}} 사용 --> 
+        <h1 class="title2">title</h1>
+        <h1 class="title2">{{title}}</h1>
+
+        <!-- 스타일 직접적용 -->
+        <!-- <h2 style='font-size:16px'>{{subject}}</h2> -->
+
+        <!-- 속성값을 변수로 적용할때는 {}사용, css 속성중 '-'를 쓰는 얘들을 그대로 쓰기 위해서는''로 감싸줘야 하고, 또 ''를 쓰기 위해 ""를 사용한다 -->
+        <!-- <h2 v-bind:style="{'font-size': fSize}">{{subject}}</h2> -->
+
+        <!-- v-bind: 대신 약식으로 :만 사용해도 적용된다 -->
+        <!-- <h2 :style="{'font-size': fSize}">{{subject}}</h2> -->
+
+        <!-- 스타일을 여러개 사용하고 싶을때 객체배열처럼.. 이건 좀 불편..... -->
+        <h2 class="title3" :style="[{'font-size': fSize}, {color: fColor}]">{{subject}}</h2>
+    </section>
+
+
+    <!-- 스크립트 -->
+    <script src="./js/lib/vue.js"></script>
+    <script>
+        //뷰 인스턴스 생성
+        new Vue({
+            /*element*/
+            el:'#section1',
+            data:{
+                title:'뷰 타이틀 입니다',
+                subject:'뷰 서브타이틀 입니다',
+                fSize:'16px',
+                fColor: '#09c',
+                변수이름 : "{{변수이름}}", /*오 대박 한글도 됨*/
+                x:true
+            }
+        });
+    </script>
+
+    <!-- 스타일 -->
+    <style>
+        #section1{
+            padding: 100px 0 ;
+            width: 100%;
+            text-align: center;
+        }
+        #section1 .title1{
+            font-size: 20px;
+            color:#c33;
+            line-height: 160%;
+        }
+        #section1 .title2{
+            font-size: 40px;
+            color:#000;
+            line-height: 160%;
+        }
+        #section1 .title3{
+            text-decoration: underline;
+            line-height: 160%;
+        }
+    </style>
+    
+</body>
+</html>

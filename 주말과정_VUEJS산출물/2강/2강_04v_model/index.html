@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뷰 인스턴스 생성과 v 디렉티브</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/lib/vue.js"></script>
+    
+</head>
+<body id="main">
+    <section id="section1">
+        <div class="wrap">
+            <div class="title">
+                <h1 v-bind:class="{'h-title':t1}">{{title}}</h1>
+                <h2 v-bind:class="{hSubject:t2}">{{subject}}</h2>
+            </div>
+            <div class="container">
+                <ul class="clearfix">
+
+                    <li>
+                        <h3>1. 텍스트 입력 상자</h3>
+                        <div>
+                            <label for="txtFood">가장 좋아하는 음식은?</label>
+                            <input type="text" id="txtFood" name="" value="" v-model="text" placeholder="좋아하는 음식을 입력하세요" v-on:click="boxAniFn" v-bind:class='{addAni : boxAni}' />
+                            <!-- v-on:keydown='boxAniFn' 타이핑을 하면 작동한다-->
+                            <h2>{{text}}</h2>
+                        </div>
+                    </li>
+                    <li>
+                        <h3>2. 목록 상자(select box)</h3>
+                        <div>
+                            <label for="family">패밀리사이트 : </label>
+                            <select name="family" id="family" v-model="outUrl" v-on:change='familyFn'>
+                                <option value="">사이트 주소를 선택하세요!</option>
+                                <option value="https://www.naver.com">네이버</option>
+                                <option value="https://www.daum.net">다음</option>
+                                <option value="https://www.google.com">구글</option>
+                                <option value="https://www.yahoo.com">야후</option>
+                            </select>
+                            <h2>{{outUrl}}</h2>
+                        </div>
+                    </li>
+                    <li>
+                        <h3>3. 체크박스(check box)</h3>
+                        <div>
+                            <input type="checkbox" name="apple" id="apple" value="사과" v-model='outChk'>
+                            <label for="apple">사과</label>
+                            <input type="checkbox" name="banana" id="banana" value="바나나" v-model='outChk'>
+                            <label for="banana">바나나</label>
+                            <input type="checkbox" name="strawberry" id="strawberry" value="딸기" v-model='outChk'>
+                            <label for="strawberry">딸기</label>
+                            <input type="checkbox" name="watermelon" id="watermelon" value="수박" v-model='outChk'>
+                            <label for="watermelon">수박</label>
+                            <h2>{{outChk}}</h2>
+                        </div>
+                    </li>
+                    <li>
+                        <h3>4. 라디오 버튼( radio)</h3>
+                        <div> <!--라디오는 name 속성을 맞춰줘야한다 -->
+                            <input type="radio" name="sex" id="male" value="남자" v-model='outRadio'>
+                            <label for="male">남자</label>
+                            <input type="radio" name="sex" id="female" value="여자" v-model='outRadio'>
+                            <label for="female">여자</label>
+
+                            <h2>{{outRadio}}</h2>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+
+    
+    <script src="./js/script.js"></script>
+    
+</body>
+</html>

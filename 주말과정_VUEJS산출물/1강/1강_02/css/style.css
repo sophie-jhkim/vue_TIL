@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+#section1 {
+  background: #fff;
+  width: 100%;
+  padding: 100px 0;
+}
+
+#section1 .wrap {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+#section1 .wrap .title {
+  text-align: center;
+}
+#section1 .wrap .title .h-title {
+  font-size: 30px;
+  color: #000;
+  line-height: 200%;
+}
+#section1 .wrap .title .hSubject {
+  font-size: 20px;
+  color: #079;
+  line-height: 150%;
+  padding-bottom: 50px;
+}
+#section1 .wrap .container {
+  width: 100%;
+}
+#section1 .wrap .container ul {
+  width: 100%;
+}
+#section1 .wrap .container ul li {
+  width: 25%;
+  float: left;
+}
+/* #section1 .wrap .container ul li div {
+  padding: 0 10px;
+} */
+#section1 .wrap .container ul li div img {
+  width: 100%;
+}
