@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>컴포넌트로 갤러리 구현하기</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/lib/vue.js"></script>
+    
+</head>
+<body id="main">
+    <div id="app">
+        <section1-component>
+            
+        </section1-component>
+    </div>
+    
+    
+
+    
+    <script>
+
+        Vue.component('section1-component', {
+            template : "\
+                        <section id='section1'>\
+                            <div class='wrap'>\
+                                <div class='title'>\
+                                    <h1 v-bind:class=\"{'h-title':t1}\">{{title}}</h1>\
+                                    <h2 v-bind:class='{hSubject:t2}'>{{subject}}</h2>\
+                                </div>\
+                                <div class='container'>\
+                                    <ul class='clearfix'>\
+                                        <li v-for='item in arrImg'>\
+                                            <div v-bind:style='{padding: imgGap }'>\
+                                                <a href='#' @click.prevent='imgClickEvent(item.imgTitle, $event)'>\
+                                                    <img :src='item.imgSrc' :alt='item.imgTitle' :title='item.imgTitle'>\
+                                                </a>\
+                                            </div>\
+                                        </li>\
+                                    </ul>\
+                                </div>\
+                            </div>\
+                        </section>\
+            ",
+            data : function(){
+                return {
+                    title: '컴포넌트 등록과 템플릿',
+                    subject:'GALLERY IMAGES',
+                    t1: true,
+                    t2: true,
+                    imgGap:'0 10px',
+                    arrImg:[
+                        {imgSrc :'./img/img1.jpg', imgTitle : "image1"}, 
+                        {imgSrc :'./img/img2.jpg', imgTitle : "image2"}, 
+                        {imgSrc :'./img/img3.jpg', imgTitle : "image3"}, 
+                        {imgSrc :'./img/img4.jpg', imgTitle : "image4"}
+                    ]
+                }
+            },
+            methods:{
+                imgClickEvent : function( param, event){
+                    alert(' a 링크 클릭 이벤트 '+ param)
+                },
+
+            }
+            
+        })
+
+
+        new Vue({
+            el: '#app',
+            data :{
+  
+            }
+        })
+    </script>
+    <!-- <script src="./js/script.js"></script> -->
+    
+</body>
+</html>

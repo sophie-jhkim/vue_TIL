@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>컴포넌트 - 지역컴포넌트</title>
+    <script src="./js/lib/vue.js"></script>
+    
+</head>
+<body>
+
+<div id="header">
+    <h1>{{title}}</h1>
+    <title-component :num1="num1"></title-component>
+    <button @click="addOne">+1</button>
+    <logo-component :num2="num2"></logo-component>
+    <button @click="addTen">+10</button>
+</div>
+    <script>
+
+        // var titleComponent = Vue.component('title-component', {
+        // 아래처럼 Vue.component를 생략할 수 있음    
+        var titleComponent =  {
+            props:['num1'],
+
+            template : "<div :class=\"{title : tit}\">\
+                            <h2 @click=\"clickFn\">{{title}}</h2>\
+                            <h2 >{{num1}}</h2>\
+                        </div>",
+            data : function(){
+                return{
+                    title : '버튼을 클릭하면 숫자가 1씩 증가합니다',
+                    tit : true
+                }
+            },
+            methods :{
+                clickFn : function(){
+                    alert('전역컴포넌트에서 클릭 이벤트 메소드 호출')
+                }
+            }
+        // });
+        };
+
+
+        var logoComponent = Vue.component('logo-component', {
+            props:['num2'],
+            template : "\
+                        <div :class='{logo : lg}'>\
+                            <h2>{{title}}</h2>\
+                            <h2>{{num2}}</h2>\
+                        </div>\
+                       ",
+            data : function(){
+                return{
+                    title : '버튼을 클릭하면 숫자가 10씩 증가합니다',
+                    lg : true
+                }
+            }
+        });
+
+        new Vue({
+            el:'#header',
+            data : {
+                title: '자식 (지역)컴포넌트로 데이터 보내기',
+                num1:0,
+                num2:0
+              
+            },
+            components : {
+                'title-component' : titleComponent,
+                'logo-component' : logoComponent
+            },
+            methods :{
+                addOne : function(){
+                    this.num1+=1;
+                },
+                addTen : function(){
+                    this.num2+=10;
+                }
+            }
+
+
+        });
+
+    </script>
+
+    <style>
+        #header {
+            text-align: center;
+            padding: 100px 0;
+        }
+        #header .title{
+            font-size: 30px;
+            color:#39a;
+        }
+        #header .logo{
+            font-size: 20px;
+            color:#a35;
+        }
+    </style>
+</body>
+</html>

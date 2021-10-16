@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>컴포넌트 - 지역컴포넌트</title>
+    <script src="./js/lib/vue.js"></script>
+    
+</head>
+<body>
+
+<div id="header">
+    <title-component></title-component>
+    <logo-component></logo-component>
+</div>
+    <script>
+
+        // var titleComponent = Vue.component('title-component', {
+        // 아래처럼 Vue.component를 생략할 수 있음    
+        var titleComponent =  {
+
+            template : "<div :class=\"{title : tit}\"><h1 @click=\"clickFn\">{{title}}</h1></div>",
+            data : function(){
+                return{
+                    title : '전역 컴포넌트의 타이틀 입니다',
+                    tit : true
+                }
+            },
+            methods :{
+                clickFn : function(){
+                    alert('전역컴포넌트에서 클릭 이벤트 메소드 호출')
+                }
+            }
+        // });
+        };
+
+
+        var logoComponent = Vue.component('logo-component', {
+            template : "\
+                        <div :class='{logo : lg}'>\
+                            <h2>{{title}}</h2>\
+                        </div>\
+                       ",
+            data : function(){
+                return{
+                    title : '전역 컴포넌트 템플릿(실제 사용되는 태그 요소들) 내용입니다',
+                    lg : true
+                }
+            }
+        });
+
+        new Vue({
+            el:'#header',
+            data : {
+              
+            },
+            components : {
+                'title-component' : titleComponent,
+                'logo-component' : logoComponent
+            }
+
+        });
+
+    </script>
+
+    <style>
+        #header {
+            text-align: center;
+            padding: 100px 0;
+        }
+        #header .title{
+            font-size: 30px;
+            color:#39a;
+        }
+        #header .logo{
+            font-size: 20px;
+            color:#a35;
+        }
+    </style>
+</body>
+</html>

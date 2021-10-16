@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery 지역컴포넌트 따라해보기</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/lib/vue.js"></script>
+</head>
+<body>
+
+    <main id="app">
+        <gallery-component>
+
+        </gallery-component>
+
+    </main>
+
+    <script>
+        const galleryComponent = {
+            template: "\
+                        <section id='section1'>\
+                            <div class='wrap'>\
+                                <div class='title'>\
+                                    <h1 v-bind:class=\"{'h-title':t1}\">{{title}}</h1>\
+                                    <h2 v-bind:class='{hSubject:t2}'>{{subject}}</h2>\
+                                </div>\
+                                <div class='container'>\
+                                    <ul class='clearfix'>\
+                                        <li v-for='item in arrImg'>\
+                                            <div v-bind:style='{padding: imgGap }'>\
+                                                <a href='#' @click.prevent='imgClickEvent(item.imgTitle, $event)'>\
+                                                    <img :src='item.imgSrc' :alt='item.imgTitle' :title='item.imgTitle'>\
+                                                </a>\
+                                            </div>\
+                                        </li>\
+                                    </ul>\
+                                </div>\
+                            </div>\
+                        </section>\
+            ",
+            data: function(){
+                return {
+                    title : '지역 컴포넌트 갤러리',
+                    subject : 'Local Component Gallery',
+                    t1 : true,
+                    t2 : true,
+                    imgGap : '0 10px',
+                    arrImg :[
+                        {imgSrc : './img/img1.jpg', imgTitle:"image1"},
+                        {imgSrc : './img/img2.jpg', imgTitle:"image2"},
+                        {imgSrc : './img/img3.jpg', imgTitle:"image3"},
+                        {imgSrc : './img/img4.jpg', imgTitle:"image4"},
+                    ]
+                }
+                
+            },
+            methods :{
+                    imgClickEvent : function(param, event){
+                        alert('a링크 클릭 이벤트' + param)
+                    }
+                }
+
+
+
+        }
+
+        new Vue({
+            el : '#app',
+            components :{
+                'gallery-component' : galleryComponent
+            }
+        })
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>컴포넌트 - 전역컴포넌트</title>
+    <script src="./js/lib/vue.js"></script>
+    
+</head>
+<body>
+<div id="header">
+    <title-component :cntnum='cnt'></title-component>
+    <!-- 버튼 클릭 이벤트 : 루트 데이터 속성 변경, 하위 컴포넌트에 통신 -->
+    <button @click='plus'>BUTTON +1 </button>
+    <logo-component :number='num'></logo-component>
+    <button @click="minus">BUTTON -1</button>
+
+
+</div>
+    <script>
+
+        Vue.component('title-component', {
+            //상위컴포넌트에서 받아올 정보는 props :[]안에 담는다
+            props : [
+                'cntnum' //props이름은 붙여쓴 소문자만 가능하다. 카멜, 케밥케이스 못씀. a태그나 img태그의 속성이 소문자로만된것처럼 
+            ],
+            template : "<div :class=\"{title : tit}\">\
+                    <h1 @click=\"clickFn\">{{title}}</h1>\
+                    <h2>{{cntnum}}</h2>\
+                        </div>",
+            data : function(){
+                return{
+                    title : '전역 컴포넌트의 타이틀 입니다',
+                    tit : true
+                }
+            },
+            methods :{
+                clickFn : function(){
+                    alert('전역컴포넌트에서 클릭 이벤트 메소드 호출')
+                },
+            }
+        });
+
+
+        Vue.component('logo-component', {
+            props:[
+                'number'
+            ],
+            template : "\
+                        <div :class='{logo : lg}'>\
+                            <h2>{{title}}</h2>\
+                            <h2>{{number}}</h2>\
+                        </div>\
+                       ",
+            data : function(){
+                return{
+                    title : '전역 컴포넌트 템플릿(실제 사용되는 태그 요소들) 내용입니다',
+                    lg : true
+                }
+            }
+        });
+
+        new Vue({
+            el:'#header',
+            data : {
+                cnt: 0,
+                num: 0,
+            },
+            methods:{
+                plus :function(){
+                    this.cnt ++;
+                    // alert(this.cnt)
+                },
+                minus : function(){
+                    this.num --;
+                }
+            }
+
+        });
+
+    </script>
+
+    <style>
+        #header {
+            text-align: center;
+            padding: 100px 0;
+        }
+        #header .title{
+            font-size: 30px;
+            color:#39a;
+        }
+        #header .logo{
+            font-size: 20px;
+            color:#a35;
+        }
+    </style>
+</body>
+</html>

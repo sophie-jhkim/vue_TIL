@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>컴포넌트 - 전역컴포넌트</title>
+    <script src="./js/lib/vue.js"></script>
+    
+</head>
+<body>
+   <!-- 1.돔DOM을 구성한다 -->
+<div id="header">
+    <title-component></title-component>
+    <logo-component></logo-component>
+</div>
+    <script>
+        // 3. 컴포넌트 등록 : 전역 컴포넌트 ... 컴포넌트내에서 데이타는 메소드(함수)로 들어간다
+        // Vue.component('컴포넌트 이름', {컴포넌트내용(프롭스, 속성, 메서드 등)});
+
+        Vue.component('title-component', {
+                                // 겹따옴표 안에 또 겹따옴표를 쓰고 싶을때
+            template : "<div :class=\"{title : tit}\"><h1 @click=\"clickFn\">{{title}}</h1></div>",
+            /*es6 백틱사용하면 더 간단하다. 따옴표 구분 안하고, 줄바꿈 역슬래시도 필요없음 but 하위 브라우저에서는 지원되지 않을 수도 있다.
+            template : `
+                        <div :class='{title : tit}'>
+                            <h1 @click='clickFn'>{{title}}</h1>
+                        </div>
+                       `, */
+            /* 데이터도 es6에서의 경우 data(){}로 사용
+            data(){
+                return{
+                    title: '전역컴포넌트의 타이틀 입니다',
+                    tit : true
+                }
+            }, */
+            data : function(){
+                return{
+                    title : '전역 컴포넌트의 타이틀 입니다',
+                    tit : true
+                }
+            },
+            methods :{
+                clickFn : function(){
+                    alert('전역컴포넌트에서 클릭 이벤트 메소드 호출')
+                }
+            }
+        });
+
+
+        Vue.component('logo-component', {
+            // 템플릿 안에 코드가 길어질때는 아래처럼 줄바꿈을 할경우 줄 끝에 \를 써줘야함
+            template : "\
+                        <div :class='{logo : lg}'>\
+                            <h2>{{title}}</h2>\
+                        </div>\
+                       ",
+            data : function(){
+                return{
+                    title : '전역 컴포넌트 템플릿(실제 사용되는 태그 요소들) 내용입니다',
+                    lg : true
+                }
+            }
+        });
+
+
+        // 2. 뷰 인스턴스 생성... 인스턴스에서는 데이타가 바로 중괄호안에 들어감
+        new Vue({
+            el:'#header',
+            data : {
+                title : '전역 컴포넌트'
+            }
+
+        });
+
+    </script>
+
+    <style>
+        #header {
+            text-align: center;
+            padding: 100px 0;
+        }
+        #header .title{
+            font-size: 30px;
+            color:#39a;
+        }
+        #header .logo{
+            font-size: 20px;
+            color:#a35;
+        }
+    </style>
+</body>
+</html>
