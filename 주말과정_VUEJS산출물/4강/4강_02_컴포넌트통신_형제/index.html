@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>컴포넌트 활용과 데이터 통신</title>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="./js/lib/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <table>
+        <caption>
+          {{title}}
+        </caption>
+
+        <thead>
+          <tr>
+            <th>no.</th>
+            <th>title</th>
+            <th>hits</th>
+            <th>date</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr
+            is="tr-component"
+            v-for="item in notice"
+            :key="item.no"
+            :notice="item"
+            v-on:child-event="parentEvent"
+          ></tr>
+        </tbody>
+      </table>
+
+      <popup-component></popup-component>
+    </div>
+
+    <script>
+      //이벤트 버스 생성 : 뷰 인스턴스 생성
+      const eventBus = new Vue();
+
+      const trComponent = {
+        props: ["notice"],
+        template:
+          "<tr @click='childEvent(notice.title)'>\
+            <td>{{notice.no}}</td>\
+            <td>{{notice.title}}</td>\
+            <td>{{notice.hits}}</td>\
+            <td>{{notice.date}}</td>\
+          </tr>",
+        methods: {
+          childEvent: function (title) {
+            // this.$emit("child-event", title);
+            //서로 다른 (형제)컴포넌트에 이벤트를 통신(전달) 방법
+            //이벤트버스 사용. 컴포넌트 맨 상위 위치에 이벤트 버스를 생성한다
+            //이벤트 버스를 다른 컴포넌트에게 전달한다
+            // eventBus.$emit(전달하는 이벤트 이름, 매개변수);
+            //받을 이벤트 버스를 팝업창에서는 새로운 훅()을 만들고 호출한다
+            eventBus.$emit("titleClick", title);
+          },
+        },
+      };
+
+      const popupComponent = {
+        template:
+          "\
+            <div class='popup' v-show='pop' @click='popClose'>\
+            <div class='container' @click.stop>\
+            <button @click='popClose'>X</button>\
+              <h1>{{listContent}}</h1>\
+            </div>\
+            </div>\
+        ",
+        data: function () {
+          return {
+            listContent: "팝업창 글 목록 내용 입니다",
+            pop: false,
+          };
+        },
+        methods: {
+          popClose: function () {
+            this.pop = false;
+          },
+        },
+        mounted: function () {
+          //이벤트 버스에서 매개변수가 있을경우에는 반드시 화살표 함수를 사용해야한다!!!
+          eventBus.$on("titleClick", (title) => {
+            this.listContent = title;
+            this.pop = true;
+          });
+        },
+      };
+
+      new Vue({
+        el: "#app",
+        data: {
+          title: "컴포넌트 활용과 데이터 통신",
+          notice: [
+            {
+              no: 1,
+              title: "프레임워크의 이해",
+              hits: 120,
+              date: "2021-10-12",
+            },
+            { no: 2, title: "뷰는 무엇인가", hits: 357, date: "2021-10-14" },
+            { no: 3, title: "컴포넌트의 이해", hits: 423, date: "2021-10-15" },
+            {
+              no: 4,
+              title:
+                "text-overflow ellipsis 제목이 길어서 요소 밖으로 나가면 말줄임표로 처리하기",
+              hits: 1223,
+              date: "2021-10-16",
+            },
+            {
+              no: 5,
+              title: "반복문 사용하기 v-for",
+              hits: 3244,
+              date: "2021-10-17",
+            },
+            {
+              no: 6,
+              title: "컴포넌트간의 데이터 통신",
+              hits: 9734,
+              date: "2021-10-17",
+            },
+          ],
+        },
+        components: {
+          "tr-component": trComponent,
+          "popup-component": popupComponent,
+        },
+        methods: {
+          parentEvent: function (title) {
+            this.title = title;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

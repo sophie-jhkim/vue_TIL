@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>지역컴포넌트와 배열 프롭스 & 배열</title>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="./js/lib/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <table>
+        <caption>
+          {{title}}
+        </caption>
+        <thead>
+          <tr>
+            <th>음식 코드</th>
+            <th>음식 이름</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            is="tbody-component"
+            v-for="item in foods"
+            :foods="item"
+            :key="item.id"
+            v-on:emitevent="rootevent"
+          ></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      const tbodyComponent = {
+        props: ["foods"],
+        template:
+          "<tr @click='clickEvent(foods.name)'>\
+                            <td>{{foods.id}}</td>\
+                            <td>{{foods.name}}</td>\
+                        </tr>",
+        methods: {
+          clickEvent: function (name) {
+            //emit은 하위 컴포넌트에서 상위 컴포넌트에게 전달하는 통신방식
+            this.$emit("emitevent", name);
+          },
+        },
+      };
+      new Vue({
+        el: "#app",
+        data: {
+          foods: [
+            { id: 1, name: "떡볶이" },
+            { id: 2, name: "짜장면" },
+            { id: 3, name: "연어초밥" },
+            { id: 4, name: "핫도그" },
+            { id: 5, name: "쌀국수" },
+            { id: 6, name: "김치볶음밥" },
+          ],
+          title: "테이블을 응용한 컴포넌트",
+        },
+        components: {
+          "tbody-component": tbodyComponent,
+        },
+        methods: {
+          rootevent: function (name) {
+            this.title = name;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

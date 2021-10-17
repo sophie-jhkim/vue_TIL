@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>컴포넌트 활용과 데이터 통신</title>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="./js/lib/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <table>
+        <caption>
+          {{title}}
+        </caption>
+
+        <thead>
+          <tr>
+            <th>no.</th>
+            <th>name</th>
+            <th>major</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr
+            is="tr-component"
+            v-for="item in doctors"
+            :key="item.no"
+            :doctors="item"
+          ></tr>
+        </tbody>
+      </table>
+
+      <popup-component></popup-component>
+    </div>
+
+    <script>
+      const eventBus = new Vue();
+      const trComponent = {
+        props: ["doctors"],
+        template:
+          "<tr @click='onTitleClick(doctors)'>\
+            <td>{{doctors.no}}</td>\
+            <td>{{doctors.name}}</td>\
+            <td>{{doctors.major}}</td>\
+          </tr>",
+        methods: {
+          onTitleClick: function (doctors) {
+            eventBus.$emit("onTitleClick", doctors);
+          },
+        },
+      };
+
+      const popupComponent = {
+        template:
+          "\
+          <div class='popup' v-show='pop' @click='popClose'>\
+            <div class='container'@click.stop>\
+              <button @click='popClose'>X</button>\
+            <img :src='doctors.imgSrc' alt='사진'/>\
+            <p class='name'>{{doctors.name}}</p>\
+            <p>{{doctors.major}}</p>\
+            </div>\
+          </div>\
+        ",
+        data: function () {
+          return {
+            pop: false,
+            doctors: [],
+          };
+        },
+        methods: {
+          popClose: function () {
+            this.pop = false;
+          },
+        },
+        mounted: function () {
+          eventBus.$on("onTitleClick", (doctors) => {
+            this.doctors = doctors;
+            this.pop = true;
+          });
+        },
+      };
+
+      new Vue({
+        el: "#app",
+        data: {
+          title: "슬기로운 의사생활",
+          doctors: [
+            {
+              no: 1,
+              name: "이익준",
+              major: "간담췌외과 부교수",
+              imgSrc: "./img/re_01_img_01.png",
+            },
+            {
+              no: 2,
+              name: "안정원",
+              major: "소아외과 조교수",
+              imgSrc: "./img/re_02_img_01.png",
+            },
+            {
+              no: 3,
+              name: "김준완",
+              major: "흉부외과 부교수",
+              imgSrc: "./img/re_03_img_01.png",
+            },
+            {
+              no: 4,
+              name: "양석형",
+              major: "산부인과 조교수",
+              imgSrc: "./img/re_04_img_01.png",
+            },
+            {
+              no: 5,
+              name: "채송화",
+              major: "신경외과 부교수",
+              imgSrc: "./img/re_05_img_01.png",
+            },
+          ],
+        },
+        components: {
+          "tr-component": trComponent,
+          "popup-component": popupComponent,
+        },
+        methods: {},
+      });
+    </script>
+  </body>
+</html>

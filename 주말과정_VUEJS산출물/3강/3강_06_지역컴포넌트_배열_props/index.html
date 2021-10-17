@@ -22,7 +22,7 @@
             </ul>
             <ul>
 
-                <tbody-component v-for="item in foods" :props="item" :key="item.id"/>
+                <tbody-component v-for="item in foods" :foods="item" :key="item.id"/>
             </ul>
 
 
@@ -34,11 +34,11 @@
 
         const tbodyComponent = {
             props :[
-                'props'
+                'foods'
             ],
             template : "<li>\
-                            <span>{{props.id}}</span>\
-                            <span>{{props.name}}</span>\
+                            <span>{{foods.id}}</span>\
+                            <span>{{foods.name}}</span>\
                         </li>",
             
             

@@ -34,3 +34,28 @@
   height: 100%;
   line-height: 50px;
 }
+
+/* 테이블 설정 */
+#app table {
+  width: 100%;
+}
+
+#app table th {
+  background: #f0f0f0;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+#app table tr {
+  height: 50px;
+  width: 100%;
+}
+
+#app table tr:hover {
+  background: #f0f0f0;
+}
+
+#app table caption {
+  padding: 50px;
+  font-size: 3vw;
+}

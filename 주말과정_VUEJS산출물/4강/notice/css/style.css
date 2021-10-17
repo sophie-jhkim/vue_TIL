@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+#app {
+  width: 100%;
+  padding: 100px 0;
+}
+
+#app table {
+  width: 700px;
+  margin: auto;
+}
+
+#app table caption {
+  padding: 20px;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+#app table th {
+  background: #ffaebc;
+  font-size: 18px;
+  font-weight: 600;
+  color: #444;
+}
+
+#app table tr {
+  height: 40px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+#app table tbody tr td:nth-child(2) {
+  box-sizing: border-box;
+  text-align: left;
+  text-indent: 15px;
+  max-width: 270px;
+  text-overflow: ellipsis;
+  padding-right: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#app table tr:hover {
+  background: #ffccd5;
+}
