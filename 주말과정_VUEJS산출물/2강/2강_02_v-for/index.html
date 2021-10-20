@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,8 +9,9 @@
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/style.css">
     <script src="./js/lib/vue.js"></script>
-    
+
 </head>
+
 <body id="main">
     <section id="section1">
         <div class="wrap">
@@ -21,16 +23,19 @@
                 <ul class="clearfix">
                     <li v-for='item in arrImg'>
                         <!-- data에 있는 배열을 반복문으로 뽑아줄때 v-for사용  -->
-                        <div v-bind:style="{padding: imgGap }"><a href="#" @click.prevent='imgClickEvent(item.imgTitle, $event)'><img :src="item.imgSrc" :alt="item.imgTitle" :title="item.imgTitle"></a></div>
+                        <div v-bind:style="{padding: imgGap }"><a href="#"
+                                @click.prevent='imgClickEvent(item.imgTitle, $event)'><img :src="item.imgSrc"
+                                    :alt="item.imgTitle" :title="item.imgTitle"></a></div>
                     </li>
                 </ul>
             </div>
         </div>
     </section>
-    
 
-    
+
+
     <script src="./js/script.js"></script>
-    
+
 </body>
+
 </html>
