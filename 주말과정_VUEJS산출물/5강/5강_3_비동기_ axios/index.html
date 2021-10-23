@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>비동기 전송방식 fetch()</title>
+    <script src="./script/vue.js"></script>
+    <script src="./script/axios.min.js"></script>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div id="notice">
+      <table>
+        <caption>
+          공지사항(Notice)
+        </caption>
+        <thead>
+          <tr>
+            <th>no</th>
+            <th>글내용</th>
+            <th>날짜</th>
+            <th>조회수</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in noticeArr">
+            <td>{{item.글번호}}</td>
+            <td>{{item.글내용}}</td>
+            <td>{{item.날짜}}</td>
+            <td>{{item.조회수}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button @click="clickEvent">공지사항</button>
+    </div>
+
+    <script>
+      new Vue({
+        el: "#notice",
+        data: {
+          noticeArr: [],
+        },
+        methods: {
+          //버튼을 클릭했을때 데이터 로드
+          clickEvent: function () {
+            //axios의 경우 전송방식이 2가지가 있다. get()과 post() get의 경우 주소창에 파라미터가 뜨고, post의 경우 뜨지 않는다
+            //const jsonData = new FormData(); //외부데이터 또는 폼데이터 처리시
+            axios.get("./data/notice.json").then((response) => {
+              /* axios.post("./data/notice.json").then((response) => {
+             response.header("Access-Control-Allow-Origin", "*");
+              response.header(
+                "Access-Control-Allow-Methods",
+                "GET,PUT,POST,DELETE,OPTIONS"
+              );
+              response.header(
+                "Access-Control-Allow-Headers",
+                "Content-Type, Authorization, Content-Length, X-Requested-With"
+              );
+              response.send();*/
+              // console.log(response.data.공지사항);
+              this.noticeArr = response.data.공지사항;
+            });
+          },
+        },
+        created: function () {},
+      });
+    </script>
+  </body>
+</html>

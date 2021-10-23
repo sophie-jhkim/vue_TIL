@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>비동기 전송방식 fetch()</title>
+    <script src="./script/vue.js"></script>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div id="notice">
+      <table>
+        <caption>
+          공지사항(Notice)
+        </caption>
+        <thead>
+          <tr>
+            <th>no</th>
+            <th>글내용</th>
+            <th>날짜</th>
+            <th>조회수</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in noticeArr">
+            <td>{{item.글번호}}</td>
+            <td>{{item.글내용}}</td>
+            <td>{{item.날짜}}</td>
+            <td>{{item.조회수}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button @click="clickEvent">공지사항</button>
+    </div>
+
+    <script>
+      new Vue({
+        el: "#notice",
+        data: {
+          noticeArr: [],
+        },
+        methods: {
+          //버튼을 클릭했을때 데이터 로드
+          clickEvent: function () {
+            //비동기식 json 데이터 처리하기
+            fetch("./data/notice.json")
+              .then((response) => {
+                // console.log(response);
+                if (response.ok) {
+                  return response.json();
+                }
+              })
+              .then((result) => {
+                console.log(result);
+                this.noticeArr = result.공지사항;
+              });
+          },
+        },
+
+        //페이지가 로드될때 자동으로 불러온다
+        created: function () {
+          fetch("./data/notice.json")
+            .then((response) => {
+              // console.log(response);
+              if (response.ok) {
+                return response.json(); //★★★★★ 받아온 결과값은 json데이터로 변환해줘야 한다
+              }
+            })
+            .then((result) => {
+              //   console.log(result);
+              let hits = result.공지사항.map((item) => item.조회수);
+              console.log(hits);
+              this.noticeArr = result.공지사항;
+            });
+        },
+      });
+    </script>
+  </body>
+</html>
