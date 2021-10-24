@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>비동기 전송방식 fetch()</title>
+    <script src="./script/vue.js"></script>
+    <!-- <script src="./script/axios.min.js"></script> -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div id="notice">
+      <!-- <form method="POST"> -->
+      <table>
+        <caption>
+          정보를 입력해주세요
+        </caption>
+        <tr>
+          <th>이름 :</th>
+          <td>
+            <input
+              type="text"
+              v-model="name"
+              placeholder="이름을 입력해주세요"
+            />
+          </td>
+        </tr>
+        <tr>
+          <th>직업 :</th>
+          <td>
+            <input type="text" v-model="job" placeholder="직업 입력해주세요" />
+          </td>
+        </tr>
+        <tr>
+          <th>주소 :</th>
+          <td>
+            <input
+              type="text"
+              v-model="addr"
+              placeholder="주소를 입력해주세요"
+            />
+          </td>
+        </tr>
+        <tr></tr>
+        <tr>
+          <th></th>
+          <td style="background: #e9e9e9; padding: 10px">
+            <p>이름 : <strong style="color: #3f51b5">{{arr[0]}}</strong></p>
+            <p>직업 : <strong style="color: #3f51b5">{{arr[1]}}</strong></p>
+            <p>주소 : <strong style="color: #3f51b5">{{arr[2]}}</strong></p>
+          </td>
+        </tr>
+      </table>
+      <button @click="clickEvent" type="submit">신청</button>
+      <!-- </form> -->
+    </div>
+
+    <script>
+      new Vue({
+        el: "#notice",
+        data: {
+          name: "",
+          job: "",
+          addr: "",
+          arr: [],
+        },
+        methods: {
+          clickEvent: function () {
+            const formData = new FormData();
+            formData.append("name", this.name); //폼에 저장(추가)
+            formData.append("job", this.job);
+            formData.append("addr", this.addr);
+            // axios.post("./response.php", formData)
+            axios({
+              method: "POST",
+              url: "./response.php",
+              data: formData,
+            })
+              .then((res) => {
+                this.arr = res.data.split(";"); //response.php 파일에서 받은 데이터를 하나의 문자열로 저장해 return하기때문에 다시 조각내서 배열로 만들어준다
+                console.log(this.arr);
+              })
+              .catch((error) => console.log(error));
+
+            this.name = "";
+            this.job = "";
+            this.addr = "";
+          },
+        },
+        created: function () {},
+      });
+    </script>
+  </body>
+</html>

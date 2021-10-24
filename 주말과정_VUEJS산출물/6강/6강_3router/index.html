@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>router</title>
+    <script src="./script/vue.js"></script>
+    <script src="./script/axios.min.js"></script>
+    <script src="./script/vue-router.js"></script>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div id="wrap">
+      <div id="app">
+        <h1>뷰 라우터 SPA 링크 페이지 만들기</h1>
+
+        <!-- ① 돔요소로 네비게이션 구성 -->
+        <nav id="nav">
+          <router-link to="./page1">page1</router-link>
+          <router-link to="./page2">page2</router-link>
+          <router-link to="./page3">page3</router-link>
+        </nav>
+
+        <!-- ② router-view 생성 -->
+        <div id="routerView">
+          <router-view></router-view>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const comp1 = {
+        template: `<div id="page1">페이지1 컨텐츠 입니다</div>`,
+      };
+      const comp2 = {
+        template: `<div id="page2">페이지2 컨텐츠 입니다</div>`,
+      };
+      const comp3 = {
+        template: `<div id="page3">페이지3 컨텐츠 입니다</div>`,
+      };
+
+      // ③ 뷰 라우터 생성
+      //라우터 정의
+      const newRouter = new VueRouter({
+        //링크 페이지 정의
+        routes: [
+          { path: "/", component: comp1 }, //홈화면, 로드페이지
+          { path: "/page1", component: comp1 },
+          { path: "/page2", component: comp2 },
+          { path: "/page3", component: comp3 },
+        ],
+      });
+
+      new Vue({
+        el: "#app",
+        data: {},
+
+        // ④ 라우터 연결
+        router: newRouter,
+        methods: {},
+        components: {},
+      });
+    </script>
+  </body>
+</html>

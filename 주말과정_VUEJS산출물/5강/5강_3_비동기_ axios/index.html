@@ -47,9 +47,25 @@
           clickEvent: function () {
             //axios의 경우 전송방식이 2가지가 있다. get()과 post() get의 경우 주소창에 파라미터가 뜨고, post의 경우 뜨지 않는다
             //const jsonData = new FormData(); //외부데이터 또는 폼데이터 처리시
-            axios.get("./data/notice.json").then((response) => {
-              /* axios.post("./data/notice.json").then((response) => {
-             response.header("Access-Control-Allow-Origin", "*");
+            // axios.get("./data/notice.json").then((response) => {
+            axios({
+              method: "get",
+              // method: "post",
+              url: "./data/notice.json",
+
+              //data : { 전송할 폼 테이터}
+            })
+              .then((response) => {
+                console.log(response.data.공지사항);
+                this.noticeArr = response.data.공지사항;
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+            //아오... 결국 별별걸 다 해봤지만 post는 안되는걸로.....
+            //아...??? rest api방식이라 post가 안되는건가..?????
+            //axios.post("./data/notice.json").then((response) => {
+            /*  response.header("Access-Control-Allow-Origin", "*");
               response.header(
                 "Access-Control-Allow-Methods",
                 "GET,PUT,POST,DELETE,OPTIONS"
@@ -59,9 +75,9 @@
                 "Content-Type, Authorization, Content-Length, X-Requested-With"
               );
               response.send();*/
-              // console.log(response.data.공지사항);
-              this.noticeArr = response.data.공지사항;
-            });
+            // console.log(response.data.공지사항);
+            // this.noticeArr = response.data.공지사항;
+            // });
           },
         },
         created: function () {},
