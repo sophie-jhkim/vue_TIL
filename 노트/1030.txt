@@ -1,0 +1,18 @@
+vue cli 웹팩 프로젝트 실행
+
+명령어: npm install -g @vue/cli
+
+프로젝트 생성(만들 폴더로 경로 이동후)
+vue create new_project
+new_project라는 이름의 프로젝프 폴더가 생성된다
+
+명령어: npm run serve 프로젝트 실행
+
+컴포넌트 이름은 파스칼형식으로 짓는다
+
+
+init형식으로 설치
+설치 명령어 : vue init webpack-simple vue_todo
+하면 vue_todo라는 폴더가 생긴다
+노드 모듈이 같이 설치되지않음.(그럼 이걸 왜 쓰지...??)
+프로젝트 폴더 경로 이동후 npm install로 설치해줘야함
